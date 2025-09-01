@@ -69,11 +69,30 @@
             
             <div class="d-flex">
               <a href="#about" class="btn-get-started">ttg ak</a>
-              <a href="https://youtu.be/qYkSyu3yY7g?si=TCtR8HbbWkEaq7PR" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>lagu untuk km</span></a>
-              <audio autoplay loop controls>
-                  <source src="assets/img/ooml.mp3" type="audio/mp3">
-                  Your browser does not support the audio element.
-              </audio>
+              <!-- <a href="https://youtu.be/qYkSyu3yY7g?si=TCtR8HbbWkEaq7PR" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>lagu untuk km</span></a> -->
+              
+              <div class="audio-player">
+              <!-- Tombol Play/Pause -->
+              <button class="play-pause-btn" onclick="togglePlay()">&#9658;</button>
+            
+              <!-- Progress Bar -->
+              <div class="progress-bar">
+                <div class="progress"></div>
+              </div>
+            
+              <!-- Durasi Audio -->
+              <span class="duration">0:00 / 3:26</span>
+            
+              <!-- Volume Control -->
+              <div class="volume-control">
+                <span class="bi bi-volume-up"></span>
+                <input type="range" min="0" max="100" value="50" id="volume-range">
+              </div>
+            </div>
+
+            <!-- Audio File -->
+            <audio id="audio" src="assets/img/ooml.mp3" preload="auto" ontimeupdate="updateProgress()" onloadeddata="updateDuration()"></audio>
+
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
