@@ -206,4 +206,40 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  let audio = document.getElementById('audio');
+let playPauseBtn = document.querySelector('.play-pause-btn');
+let progressBar = document.querySelector('.progress');
+let volumeControl = document.getElementById('volume-range');
+
+// Toggle Play/Pause Button
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.innerHTML = '❚❚'; // Icon pause
+  } else {
+    audio.pause();
+    playPauseBtn.innerHTML = '►'; // Icon play
+  }
+}
+
+// Update Progress Bar
+function updateProgress() {
+  let progress = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = progress + '%';
+}
+
+// Update Duration Text
+function updateDuration() {
+  let durationText = document.querySelector('.duration');
+  let minutes = Math.floor(audio.duration / 60);
+  let seconds = Math.floor(audio.duration % 60);
+  durationText.innerText = `0:00 / ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+}
+
+// Update Volume Control
+volumeControl.addEventListener('input', function () {
+  audio.volume = volumeControl.value / 100;
+});
+
+
 })();
