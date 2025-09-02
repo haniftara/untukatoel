@@ -206,40 +206,42 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
-  let audio = document.getElementById('audio');
+let audio = document.getElementById('audio');
 let playPauseBtn = document.querySelector('.play-pause-btn');
-let progressBar = document.querySelector('.progress');
+let progress = document.querySelector('.progress');
+let durationText = document.querySelector('.duration');
 let volumeControl = document.getElementById('volume-range');
 
-// Toggle Play/Pause Button
+// Fungsi untuk play/pause audio
 function togglePlay() {
   if (audio.paused) {
     audio.play();
-    playPauseBtn.innerHTML = '❚❚'; // Icon pause
+    playPauseBtn.innerHTML = '❚❚'; // Tombol pause
   } else {
     audio.pause();
-    playPauseBtn.innerHTML = '►'; // Icon play
+    playPauseBtn.innerHTML = '►'; // Tombol play
   }
 }
 
-// Update Progress Bar
+// Memperbarui progress bar
 function updateProgress() {
-  let progress = (audio.currentTime / audio.duration) * 100;
-  progressBar.style.width = progress + '%';
+  let progressWidth = (audio.currentTime / audio.duration) * 100;
+  progress.style.width = progressWidth + '%';
+
+  // Memperbarui durasi audio
+  let currentMinutes = Math.floor(audio.currentTime / 60);
+  let currentSeconds = Math.floor(audio.currentTime % 60);
+  let durationMinutes = Math.floor(audio.duration / 60);
+  let durationSeconds = Math.floor(audio.duration % 60);
+
+  durationText.innerText = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds} / ${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
 }
 
-// Update Duration Text
-function updateDuration() {
-  let durationText = document.querySelector('.duration');
-  let minutes = Math.floor(audio.duration / 60);
-  let seconds = Math.floor(audio.duration % 60);
-  durationText.innerText = `0:00 / ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-}
-
-// Update Volume Control
+// Menyeting Volume
 volumeControl.addEventListener('input', function () {
   audio.volume = volumeControl.value / 100;
 });
-
+playPauseBtn.addEventListener('click', togglePlay);
+audio.addEventListener('timeupdate', updateProgress);
 
 })();
